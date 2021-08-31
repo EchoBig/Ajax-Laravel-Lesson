@@ -45,10 +45,19 @@ class CountriesController extends Controller
                             ->addIndexColumn()
                             ->addColumn('action',function($row){
                                 return '<div class="btn-group">
-                                            <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'">Update</button>
+                                            <button class="btn btn-sm btn-primary" data-id="'.$row['id'].'" id="editCountryBtn">Update</button>
                                             <button class="btn btn-sm btn-warning">Delete</button>
                                         </div>';
                             })
                             ->make(true);
     }
+
+    // Get Country Details
+    public function getCountryDetails(Request $request){
+        $country_id     = $request->country_id;
+        $CountryDetails = Country::find($country_id);
+
+        return response()->json(['details' => $CountryDetails]);    
+    }
+
 }

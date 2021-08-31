@@ -21,3 +21,4 @@ Route::get('/', function () {
 Route::get('/countries.list', [CountriesController::class,'index'])->name('countries.list');
 Route::post('/add-country', [CountriesController::class,'addCountry'])->name('add.country');
 Route::get('/getCountriesList',[CountriesController::class,'getCountriesList'])->name('get.contyies.list');
+Route::post('/getCountryDetails',[CountriesController::class,'getCountryDetails'])->name('get.country.details');

@@ -83,6 +83,7 @@
 
 		$(function(){
 
+			// Add Country
 			$('#add-country').on('submit',function(e){
 				e.preventDefault();
 
@@ -128,6 +129,15 @@
 					{data:"action",name:"action"}
 				]
 			});
+
+			// Edit Country
+			$(document).on('click','#editCountryBtn',function(){
+				var id = $(this).data('id');
+				$.post("<?= route('get.country.details')?>",{country_id:id},function(data){
+					alert(data.details.country_name);
+				},'json');
+			});
+
 		});
 	</script>
 
