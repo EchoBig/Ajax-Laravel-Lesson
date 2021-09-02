@@ -22,3 +22,4 @@ Route::get('/countries.list', [CountriesController::class,'index'])->name('count
 Route::post('/add-country', [CountriesController::class,'addCountry'])->name('add.country');
 Route::get('/getCountriesList',[CountriesController::class,'getCountriesList'])->name('get.contyies.list');
 Route::post('/getCountryDetails',[CountriesController::class,'getCountryDetails'])->name('get.country.details');
+Route::post('/updateCountry',[CountriesController::class,'updateCountry'])->name('update.country');

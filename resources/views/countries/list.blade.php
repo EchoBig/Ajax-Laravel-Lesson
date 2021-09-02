@@ -63,6 +63,7 @@
 		</div>
 	</div>
 
+	@include('countries.edit-modal')
 
 	<script src="{{ asset('jquery/jquery-3.6.0.min.js') }}"></script>
 	<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
@@ -134,8 +135,42 @@
 			$(document).on('click','#editCountryBtn',function(){
 				var id = $(this).data('id');
 				$.post("<?= route('get.country.details')?>",{country_id:id},function(data){
-					alert(data.details.country_name);
+					// alert(data.details.country_name);
+					$('#edit-country').find('input[name="cid"]').val(data.details.id);
+					$('#edit-country').find('input[name="country_name"]').val(data.details.country_name);
+					$('#edit-country').find('input[name="capital_city"]').val(data.details.capital_city);
+					$('#edit-country').modal('show');
 				},'json');
+			});
+
+			//Update Country
+			$('#frmUpdateCountry').on('submit',function(e){
+				e.preventDefault();
+				var form = this;
+				$.ajax({
+					url:$(form).attr('action'),
+					method:$(form).attr('method'),
+					data:new FormData(form),
+					processData:false,
+					dataType:'json',
+					contentType:false,
+					beforeSend:function(){
+						$(form).find('span.error-text').text('');
+					},
+					success:function(data){
+						if (data.code == 0) {
+							$.each(data.error,function(prefix,val){
+								$(form).find('span.'+prefix+'_error').text(val[0]);
+							});
+						}
+						else{
+							$('#contries-table').DataTable().ajax.reload(null,false);
+							$('#edit-country').modal('hide');
+							$('#edit-country').find('form')[0].reset();
+							toastr.success(data.msg);
+						}
+					}
+				});
 			});
 
 		});
