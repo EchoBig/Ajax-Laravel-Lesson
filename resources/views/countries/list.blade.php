@@ -171,6 +171,40 @@
 						}
 					}
 				});
+
+			});
+
+			//Delete Country
+			$(document).on('click','#deleteCountryBtn',function(e){
+				e.preventDefault();
+				var id 	= $(this).data('id');
+				var url = '{{ route("deleteCountry") }}';
+				
+				swal.fire({
+					title: 'Are you sure ?',
+					html: 'You want to <b>delete</b> this country',
+					showCancelButton: true,
+					showCloseButton:true,
+					cancelButtonText: 'Cancel',
+					confirmButtonText: 'Yes, Delete',
+					cancelButtonColor: '#d33',
+					confirmButtonColor: '#556ee6',
+					width: 300,
+					allowOutsideClick: false
+				}).then(function(result){
+					if (result.value) {
+						$.post(url,{country_id:id},function(data){
+							if (data.code == 1) {
+								$('#contries-table').DataTable().ajax.reload(null,false);
+								toastr.success(data.msg);
+							}
+							else{
+								toastr.error(data.msg);
+							}
+						},'json');
+					}
+
+				});
 			});
 
 		});

@@ -23,3 +23,4 @@ Route::post('/add-country', [CountriesController::class,'addCountry'])->name('ad
 Route::get('/getCountriesList',[CountriesController::class,'getCountriesList'])->name('get.contyies.list');
 Route::post('/getCountryDetails',[CountriesController::class,'getCountryDetails'])->name('get.country.details');
 Route::post('/updateCountry',[CountriesController::class,'updateCountry'])->name('update.country');
+Route::post('/deleteCountry',[CountriesController::class,'deleteCountry'])->name('deleteCountry');
